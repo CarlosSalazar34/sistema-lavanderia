@@ -1,43 +1,96 @@
-# sistema-lavanderia
-Ejercicio: Sistema "CleanCode Laundry"
-Objetivo: Crear un programa en C++ que gestione los servicios de una lavandería.
+# 🧺 Sistema de Gestión de Lavandería
 
-1. La Estructura de Datos
-Definan un struct llamado Pedido que contenga:
+Un programa en C++ que gestiona los servicios de una lavandería, permitiendo registrar pedidos, listar servicios y calcular ganancias.
 
-id: Un número entero (debe ser único).
+## 📋 Características
 
-nombreCliente: Texto (string).
+- **Registrar Pedido**: Captura nombre del cliente, tipo de servicio y peso
+- **Listar Pedidos**: Visualiza todos los pedidos registrados
+- **Buscar por ID**: Localiza un pedido específico por su identificador
+- **Estadísticas**: Muestra total de pedidos e ingresos generados
+- **ID Automático**: Los pedidos se numeran secuencialmente (100, 101, 102...)
 
-tipoServicio: Un entero (1 para "Lavado básico", 2 para "Lavado + Secado").
+## 💰 Tarifas
 
-pesoKilos: Un número decimal (float o double).
+| Servicio | Precio por kilo |
+|----------|-----------------|
+| Lavado básico | $2.00 |
+| Lavado + Secado | $3.50 |
 
-total: El costo calculado del servicio.
+## 🚀 Compilación & Ejecución
 
-2. Requerimientos del Sistema
-El programa debe mostrar un menú con las siguientes opciones:
+### Con GCC (Windows/Linux/Mac)
+```bash
+g++ -o sistema main.cpp
+./sistema          # Linux/Mac
+sistema.exe        # Windows
+```
 
-Registrar Pedido: * El id debe generarse automáticamente (empezando en 100 y aumentando de 1 en 1).
+### Con Visual Studio (Windows)
+```bash
+cl /EHsc main.cpp
+main.exe
+```
 
-Si el usuario elige Servicio 1, el precio es $2.00 por kilo.
+### Con Code::Blocks o Dev-C++
+1. Crear un nuevo proyecto C++
+2. Agregar el archivo `main.cpp`
+3. Compilar y ejecutar
 
-Si elige Servicio 2, el precio es $3.50 por kilo.
+## 📖 Instrucciones de Uso
 
-El programa debe calcular el total inmediatamente y guardar el pedido en un vector<Pedido>.
+Al ejecutar el programa verás este menú:
 
-Listar Pedidos:
+```
+BIENVENIDO AL SISTEMA DE LAVANDERIA
+1. Registrar pedido.
+2. Listar pedidos.
+3. Buscar por id.
+4. Salir.
+Ingrese una opcion: 
+```
 
-Mostrar en pantalla todos los pedidos registrados con su ID, nombre, peso y el total a pagar.
+### Abrir un Pedido (Opción 1)
+1. Ingresa tu nombre
+2. Selecciona tipo de servicio (1 o 2)
+3. Ingresa el peso en kilos
+4. Se genera automáticamente el ID y se calcula el total
 
-Resumen de Ventas (Estadísticas):
+### Ver Todos los Pedidos (Opción 2)
+Muestra un listado completo con:
+- ID del pedido
+- Nombre del cliente
+- Tipo de servicio
+- Peso (kilos)
+- Total a pagar ($)
 
-Mostrar cuántos pedidos totales se han hecho.
+### Buscar Pedido (Opción 3)
+Ingresa el ID de un pedido para ver sus detalles específicos
 
-Mostrar el monto total de dinero recaudado por la lavandería hasta el momento.
+### Salir (Opción 4)
+Cierra el programa
 
-Buscar por ID:
+## 🛠️ Estructura del Código
 
-El usuario ingresa un ID y el programa debe buscar en el vector y mostrar los datos de ese cliente. Si no existe, avisar al usuario.
+```cpp
+struct Pedido {
+    int id;                  // Identificador único (100+)
+    string nombreCliente;    // Nombre del cliente
+    int tipoServicio;        // 1 = Básico, 2 = Secado
+    float pesoKilos;         // Peso del pedido
+    float total;             // Total calculado
+};
+```
 
-Salir.
+## 📦 Requisitos
+
+- C++ 11 o superior
+- Compilador: GCC, Clang o MSVC
+- Ninguna librería externa requerida
+
+## 👨‍💻 Autores
+
+**Carlos Salazar** - Proyecto educativo
+**Maria Marcacci** - Proyecto educativo
+**Estefano Evangelista** - Proyecto educativo
+**Ronald Landaeta** - Proyecto educativo
