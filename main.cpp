@@ -25,13 +25,17 @@ void menu(){
 void registro_pedido(vector<vector<any>>& pedidos, int & id){
     string nombre, tipo_servicio;
     float peso;
-    cout << "Ingrese su nombre";
-    cin >> nombre;
-    cout << "ingrese el tipo de servicio: ";
-    cin >> tipo_servicio;
-    cout << "Ingrese el peso: ";
+    // Limpiamos cualquier residuo del buffer que venga del menú
+    cin.ignore(1000, '\n'); 
+    cout << "Ingrese su nombre: ";
+    getline(cin, nombre); // Usar getline permite nombres con espacios (ej: "Juan Perez")
+    cout << "Ingrese el tipo de servicio: ";
+    getline(cin, tipo_servicio);
+    cout << "Ingrese el peso (kg): ";
     cin >> peso;
+    // Guardamos en el vector
     pedidos.push_back({id, nombre, tipo_servicio, peso});
+    cout << "¡Pedido registrado con ID: " << id << "!" << endl;
 }
 
 void listarPedidos(vector<vector<any>>& pedidos){ 
