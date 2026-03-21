@@ -1,5 +1,9 @@
 #include <iostream>
 using namespace std;
+#include <vector>
+#include <string>
+#include <any>
+
 
 void menu(){ 
     cout<< "BIENVENIDO AL SISTEMA DE LAVANDERIA" << endl;
@@ -9,7 +13,22 @@ void menu(){
     cout << "4. Salir." << endl;
 }
 
+void registro_pedido (vector<vector<any>>& pedidos, int & id) {
+    string nombre, tipo_servicio;
+    float peso;
+    cout << "Ingrese su nombre";
+    cin >> nombre;
+    cout << "ingrese el tipo de servicio: ";
+    cin >> tipo_servicio;
+    cout << "Ingrese el peso: ";
+    cin >> peso;
+    pedidos.push_back({id, nombre, tipo_servicio, peso});
+}
+
 int main(){
+    vector<vector<any>> pedidos;
+    int counter;
+
     int opcion;
     while (true)
     {   
@@ -19,6 +38,7 @@ int main(){
         switch (opcion)
         {
         case 1:
+            registro_pedido(pedidos, counter);
             break;
         
         case 4: 
