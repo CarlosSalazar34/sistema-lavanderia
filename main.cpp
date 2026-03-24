@@ -6,6 +6,17 @@
 #include <cstdlib>
 using namespace std;
 
+struct Pedido
+{
+    int id;
+    string nombreCliente;
+    int tipoServicio;
+    float pesoKilos;
+    float total;
+
+};
+
+
 void clearTerminal() {
     #ifdef _WIN32
         system("cls");
@@ -22,35 +33,47 @@ void menu(){
     cout << "4. Salir." << endl;
 }
 
-void registro_pedido(vector<vector<any>>& pedidos, int & id){
-    string nombre, tipo_servicio;
+float getTotal(int tipo_servicio, float peso){
+    return tipo_servicio * peso;
+}
+
+void registro_pedido(vector<Pedido>& pedidos, int & id){
+    string nombre;
+    int tipo_servicio;
     float peso;
     // Limpiamos cualquier residuo del buffer que venga del menú
     cin.ignore(1000, '\n'); 
     cout << "Ingrese su nombre: ";
     getline(cin, nombre); // Usar getline permite nombres con espacios (ej: "Juan Perez")
     cout << "Ingrese el tipo de servicio: ";
-    getline(cin, tipo_servicio);
+    cin >> tipo_servicio;
     cout << "Ingrese el peso (kg): ";
     cin >> peso;
+    float total = getTotal(tipo_servicio, peso); 
     // Guardamos en el vector
-    pedidos.push_back({id, nombre, tipo_servicio, peso});
+    Pedido nuevoPedido = {id, nombre, tipo_servicio, peso, total};
+    pedidos.push_back(nuevoPedido);
     cout << "¡Pedido registrado con ID: " << id << "!" << endl;
 }
 
-void listarPedidos(vector<vector<any>>& pedidos){ 
-    for(auto pedido : pedidos){ 
-        cout << "ID: " << any_cast<int>(pedido[0]) << endl;
-        cout << "Nombre: " << any_cast<string>(pedido[1]) << endl;
-        cout << "Tipo de servicio: " << any_cast<string>(pedido[2]) << endl;
-        cout << "Peso: " << any_cast<float>(pedido[3]) << endl;
+void listarPedidos(const vector<Pedido>& pedidos){ 
+    if (pedidos.empty()) {
+        cout << "No hay pedidos registrados." << endl;
+        return;
+    }
+    for(const auto& pedido : pedidos){ 
+        cout << "ID: " << pedido.id << endl;
+        cout << "Nombre: " << pedido.nombreCliente << endl;
+        cout << "Tipo de servicio: " << pedido.tipoServicio << endl;
+        cout << "Peso: " << pedido.pesoKilos << " kg" << endl;
+        cout << "Total: " << pedido.total << "\n" << endl;
     }
 }
 
 int main(){
-    vector<vector<any>> pedidos;
-    int counter;
-    int opcion = 1;
+    vector<Pedido> pedidos;
+    int counter = 1;
+    int opcion = 0;
     while (true)
     {     
         menu();
@@ -68,17 +91,43 @@ int main(){
             clearTerminal();
             listarPedidos(pedidos);
             break;
+
+        case 3:
+            clearTerminal();
+            {
+                int idBuscado;
+                cout << "Ingrese el ID a buscar: ";
+                cin >> idBuscado;
+                bool encontrado = false;
+                for (const auto& p : pedidos) {
+                    if (p.id == idBuscado) {
+                        encontrado = true;
+                        cout << "ID: " << p.id << endl;
+                        cout << "Nombre: " << p.nombreCliente << endl;
+                        cout << "Tipo de servicio: " << p.tipoServicio << endl;
+                        cout << "Peso: " << p.pesoKilos << " kg" << endl;
+                        cout << "Total: " << p.total << "\n" << endl;
+                        break;
+                    }
+                }
+                if (!encontrado) {
+                    cout << "Pedido no encontrado para ID " << idBuscado << "." << endl;
+                }
+            }
+            break;
         
         case 4: 
             clearTerminal();
             cout << "Saliendo del programa..." << endl;
             return 0;
+
         default:
+            clearTerminal();
+            cout << "Opcion invalida. Intente de nuevo." << endl;
             break;
         }
     }
     
-
     return 0;
 }
 
