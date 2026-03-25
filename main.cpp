@@ -34,6 +34,7 @@ void menu(){
 }
 
 float getTotal(int tipo_servicio, float peso){
+    printf("Calculando total para tipo de servicio %d y peso %.2f kg...\n", tipo_servicio, peso);
     return tipo_servicio * peso;
 }
 
